@@ -9,7 +9,7 @@ async function getMoviesOrError(url, query = "") {
     : response.data;
 }
 
-export async function getTrendingDayMovies(page) {
+export async function getTrendingDayMovies(page=1) {
   return await getMoviesOrError(
     `/trending/all/day?api_key=${MOVIE_API_KEY}&page=${page}&include_adult=false`,
   );

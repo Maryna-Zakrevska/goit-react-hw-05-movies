@@ -1,0 +1,91 @@
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import { FaSearch } from "react-icons/fa";
+import PropTypes from "prop-types";
+import ListItem from "components/ListItem/ListItem";
+import { Status } from "utils/makeChunk";
+
+
+
+import {
+  SearchbarStyled,
+  SearchFormStyled,
+  SearchFormButtonStyled,
+  SearchFormButtonSpanStyled,
+  SearchFormInputStyled,
+  SearchFormButtonLabelStyled,
+} from "./MoviesPage.styled";
+import { getSearchMovies } from "services/movie-api";
+
+function Searchbar({ onSubmit, status }) {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const inputQueryChange = (e) => {
+    setSearchQuery(e.target.value.toLowerCase());
+  };
+
+  const formSubmit = (e) => {
+    e.preventDefault();
+    const formQuery = searchQuery.trim();
+    if (formQuery === "") {
+      toast.error("Please type your query request");
+      return;
+    }
+    onSubmit(formQuery);
+    setSearchQuery("");
+  };
+
+  return (
+    <SearchbarStyled>
+      <SearchFormStyled onSubmit={formSubmit}>
+        <SearchFormButtonLabelStyled>
+          <SearchFormInputStyled
+            name="searchQuery"
+            value={searchQuery}
+            onChange={inputQueryChange}
+            type="text"
+            autoComplete="off"
+            autoFocus
+            placeholder="Search movies"
+          />
+        </SearchFormButtonLabelStyled>
+        <SearchFormButtonStyled type="submit" disabled={status === "pending"}>
+          <FaSearch />
+          <SearchFormButtonSpanStyled>Search</SearchFormButtonSpanStyled>
+        </SearchFormButtonStyled>
+      </SearchFormStyled>
+    </SearchbarStyled>
+  );
+}
+
+Searchbar.propTypes = {
+  onSubmit: PropTypes.func,
+  status: PropTypes.string,
+};
+
+export default function MoviesPage({ onSubmit, status, query, page, setStatus }) {
+  const [searchMovies, setSearchMovies] = useState(null);
+  useEffect(() => {
+    setStatus(Status.PENDING);
+    getSearchMovies(query, page)
+      .then(setSearchMovies, setStatus(Status.RESOLVED)) 
+      .catch((error) => toast("No results, please try again"));
+  }, [page, query,setStatus]);
+  const hasRequestMovies = searchMovies?.results?.length > 0;
+  return (
+    <div>
+      <Searchbar onSubmit={onSubmit} status={status} />
+      <ul>
+        {hasRequestMovies &&
+          searchMovies.results.map((item) => <ListItem key={item.id} item={item} />)}
+      </ul>
+    </div>
+  );
+}
+
+MoviesPage.propTypes = {
+  onSubmit: PropTypes.func,
+  status: PropTypes.string,
+  query:PropTypes.string, 
+  page:PropTypes.number,
+};
