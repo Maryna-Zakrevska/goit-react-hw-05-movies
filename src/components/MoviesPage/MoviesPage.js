@@ -4,7 +4,8 @@ import { FaSearch } from "react-icons/fa";
 import PropTypes from "prop-types";
 import ListItem from "components/ListItem/ListItem";
 import { Status } from "utils/makeChunk";
-
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 import {
@@ -65,16 +66,22 @@ Searchbar.propTypes = {
 
 export default function MoviesPage({ onSubmit, status, query, page, setStatus }) {
   const [searchMovies, setSearchMovies] = useState(null);
+  const location = useLocation();
   useEffect(() => {
+    if ((query === '')) {
+      return;
+    }
     setStatus(Status.PENDING);
     getSearchMovies(query, page)
       .then(setSearchMovies, setStatus(Status.RESOLVED)) 
       .catch((error) => toast("No results, please try again"));
   }, [page, query,setStatus]);
   const hasRequestMovies = searchMovies?.results?.length > 0;
+  const goBackURL = location?.state?.from ?? "/";
   return (
     <div>
       <Searchbar onSubmit={onSubmit} status={status} />
+      <Link to={goBackURL}>&lArr; Go back</Link>
       <ul>
         {hasRequestMovies &&
           searchMovies.results.map((item) => <ListItem key={item.id} item={item} />)}
