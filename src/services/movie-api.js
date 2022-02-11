@@ -15,7 +15,7 @@ export async function getTrendingDayMovies(page=1) {
   );
 }
 
-export async function getSearchMovies(query, page) {
+export async function getSearchMovies(query, page=1) {
   return await getMoviesOrError(
     `/search/movie?query=${query}&api_key=${MOVIE_API_KEY}&page=${page}&include_adult=false`,
   );
@@ -33,7 +33,7 @@ export async function getSearchMovies(query, page) {
     );
   } 
 
-  export async function getMovieReviews(movieId, page) {
+  export async function getMovieReviews(movieId, page=1) {
     return await getMoviesOrError(
       `/movie/${movieId}/reviews?api_key=${MOVIE_API_KEY}&page=${page}`,
     );

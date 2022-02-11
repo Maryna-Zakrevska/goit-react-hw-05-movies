@@ -5,8 +5,10 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-function makeImagePath(image = "") {
+export function makeImagePath(image = "") {
   return image && `https://image.tmdb.org/t/p/w342${image}`;
 }
 
@@ -53,6 +55,14 @@ export default function MovieDetailsPage() {
         <h3>Genres</h3>
         <p>{genresNames}</p>
       </div>
+      <div>
+        <h3>Additional information</h3>
+      <ul>
+        <li><NavLink to="cast">Cast</NavLink></li>
+        <li><NavLink to="reviews">Reviews</NavLink></li>
+      </ul>
+      </div>
+      <Outlet />  
     </div>
   );
 }

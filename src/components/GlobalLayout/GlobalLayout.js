@@ -1,4 +1,6 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function GlobalLayout() {
   return (
@@ -9,6 +11,7 @@ export default function GlobalLayout() {
         <NavLink to="movies">Movies</NavLink>
       </nav>
       <main>
+      <ToastContainer autoClose={3000} />
         <Outlet />
       </main>
     </>

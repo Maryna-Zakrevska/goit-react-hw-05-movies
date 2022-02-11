@@ -73,9 +73,18 @@ export default function MoviesPage({ onSubmit, status, query, page, setStatus })
     }
     setStatus(Status.PENDING);
     getSearchMovies(query, page)
-      .then(setSearchMovies, setStatus(Status.RESOLVED)) 
+    .then(newSearchMovies => {
+      if (!newSearchMovies?.results?.length) {
+        toast(`No results for ${query}`);
+      }
+      setSearchMovies(newSearchMovies);
+      setStatus(Status.RESOLVED);
+    })
       .catch((error) => toast("No results, please try again"));
   }, [page, query,setStatus]);
+
+
+  
   const hasRequestMovies = searchMovies?.results?.length > 0;
   const goBackURL = location?.state?.from ?? "/";
   return (

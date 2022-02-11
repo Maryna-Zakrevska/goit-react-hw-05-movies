@@ -4,6 +4,8 @@ import GlobalLayout from "./GlobalLayout/GlobalLayout";
 import { makeChunk } from "utils/makeChunk";
 import { Status } from "utils/makeChunk";
 import MovieDetailsPage from "./MovieDetailsPage/MovieDetailsPage";
+import { Cast } from "./Cast/Cast";
+import { Reviews } from "./Reviews/Reviews";
 
 const HomePage = makeChunk("HomePage");
 const MoviesPage = makeChunk("MoviesPage");
@@ -32,7 +34,10 @@ export const App = () => {
                 />
               }
             />
-            <Route path="movies/:movieId" element={<MovieDetailsPage />} />
+            <Route path="movies/:movieId" element={<MovieDetailsPage />}>
+              <Route path="cast" element={<Cast />} />
+              <Route path="reviews" element={<Reviews />} />
+            </Route>
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
