@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types'
 
 export default function ListItem({
   item: {
@@ -14,3 +15,11 @@ export default function ListItem({
     </li>
   );
 }
+
+ListItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    title: PropTypes.string,
+    name: PropTypes.string,
+  }),
+};

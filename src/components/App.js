@@ -3,13 +3,14 @@ import { Route, Routes } from "react-router-dom";
 import GlobalLayout from "./GlobalLayout/GlobalLayout";
 import { makeChunk } from "utils/makeChunk";
 import { Status } from "utils/makeChunk";
-import MovieDetailsPage from "./MovieDetailsPage/MovieDetailsPage";
-import { Cast } from "./Cast/Cast";
-import { Reviews } from "./Reviews/Reviews";
 
 const HomePage = makeChunk("HomePage");
 const MoviesPage = makeChunk("MoviesPage");
 const NotFound = makeChunk("NotFound");
+const MovieDetailsPage = makeChunk("MovieDetailsPage");
+const Reviews = makeChunk("Reviews");
+const Cast = makeChunk("Cast");
+
 
 export const App = () => {
   const [page] = useState(1);
@@ -21,7 +22,7 @@ export const App = () => {
       <Suspense fallback={<p>Just loading...</p>}>
         <Routes>
           <Route path="/" element={<GlobalLayout />}>
-            <Route index element={<HomePage />} />
+            <Route index element={<HomePage page={page}/> } />
             <Route
               path="movies/*"
               element={

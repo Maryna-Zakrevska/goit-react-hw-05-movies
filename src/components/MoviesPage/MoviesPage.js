@@ -83,6 +83,14 @@ export default function MoviesPage({ onSubmit, status, query, page, setStatus })
       .catch((error) => toast("No results, please try again"));
   }, [page, query,setStatus]);
 
+  useEffect(() => {
+    console.log('MoviesPage mounted');
+    return () => {
+      console.log('MoviesPage UNmounted');
+      setSearchMovies(null);
+    };
+  }, []);
+
 
   
   const hasRequestMovies = searchMovies?.results?.length > 0;
@@ -104,4 +112,5 @@ MoviesPage.propTypes = {
   status: PropTypes.string,
   query:PropTypes.string, 
   page:PropTypes.number,
+  setStatus: PropTypes.func,
 };

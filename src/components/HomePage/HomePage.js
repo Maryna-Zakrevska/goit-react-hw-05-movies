@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { getTrendingDayMovies } from "services/movie-api";
 import ListItem from "components/ListItem/ListItem";
-
+import PropTypes from "prop-types";
 
 export default function HomePage({ page }) {
   const [trending, setTrending] = useState(null);
@@ -14,7 +14,14 @@ export default function HomePage({ page }) {
   const hasTrendingMovies = trending?.results?.length > 0;
   return (
     <div>
-      <ul>{hasTrendingMovies && trending.results.map((item) => <ListItem key={item.id} item={item} />)}</ul>
+      <ul>
+        {hasTrendingMovies &&
+          trending.results.map((item) => <ListItem key={item.id} item={item} />)}
+      </ul>
     </div>
   );
+}
+
+HomePage.propTypes = {
+  page: PropTypes.number.isRequired,
 };
