@@ -1,13 +1,19 @@
+import {
+  MovieDetailsPageDivStyled,
+  GoBackLink,
+  MovieImageStyled,
+  MovieInfoDivStyled,
+  TitleMovieStyled,
+  MovieAddInfoDivStyled,
+  AddInfoListStyled,
+  NavLink
+} from "./MovieDetailsPage.styled";
 import React from "react";
 import { useState, useEffect } from "react";
 import { getMovieDetails } from "services/movie-api";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { Outlet } from "react-router-dom";
-import { NavLink } from "react-router-dom";
-import { ReactComponent as PlaceholderIcon } from "image/placehoder.svg";
+import { useParams, useLocation, Outlet} from "react-router-dom";
+import { ReactComponent as PlaceholderIcon } from "image/placeholder.svg";
 export { PlaceholderIcon };
 
 export function makeImagePath(image = "") {
@@ -41,38 +47,45 @@ export default function MovieDetailsPage() {
   const goBackURL = location?.state?.from ?? "/";
 
   return (
-    <div>
-      <Link to={goBackURL}>&lArr; Go back</Link>
+    <MovieDetailsPageDivStyled>
+      <GoBackLink to={goBackURL}>&lArr; Go back</GoBackLink>
       <div>
         {poster_path ? (
-          <img src={makeImagePath(poster_path)} alt={title || original_title || "poster image"} />
+          <MovieImageStyled
+            src={makeImagePath(poster_path)}
+            alt={title || original_title || "poster image"}
+          />
         ) : (
           <PlaceholderIcon width="121" height="121" fill="white" />
         )}
       </div>
 
-      <div>
-        <h1>
+      <MovieInfoDivStyled>
+        <TitleMovieStyled>
           {title || original_title || "Title"} <span>{releaseDate}</span>
-        </h1>
+        </TitleMovieStyled>
         <p>User Score: {vote_average * 10}%</p>
         <h2>Overview</h2>
         <p>{overview}</p>
         <h3>Genres</h3>
         <p>{genresNames}</p>
-      </div>
-      <div>
+      </MovieInfoDivStyled>
+      <MovieAddInfoDivStyled>
+        <>
         <h3>Additional information</h3>
-        <ul>
+        </>
+        <>
+        <AddInfoListStyled>
           <li>
             <NavLink to="cast">Cast</NavLink>
           </li>
           <li>
             <NavLink to="reviews">Reviews</NavLink>
           </li>
-        </ul>
-      </div>
+        </AddInfoListStyled>
+        </>
+      </MovieAddInfoDivStyled>
       <Outlet />
-    </div>
+    </MovieDetailsPageDivStyled>
   );
 }

@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import { getTrendingDayMovies } from "services/movie-api";
 import ListItem from "components/ListItem/ListItem";
 import PropTypes from "prop-types";
+import { HomeListStyled, HomeListDivStyled } from "./HomePage.styled";
 
 export default function HomePage({ page }) {
   const [trending, setTrending] = useState(null);
@@ -13,12 +14,12 @@ export default function HomePage({ page }) {
   }, [page]);
   const hasTrendingMovies = trending?.results?.length > 0;
   return (
-    <div>
-      <ul>
+    <HomeListDivStyled>
+      <HomeListStyled>
         {hasTrendingMovies &&
           trending.results.map((item) => <ListItem key={item.id} item={item} />)}
-      </ul>
-    </div>
+      </HomeListStyled>
+    </HomeListDivStyled>
   );
 }
 

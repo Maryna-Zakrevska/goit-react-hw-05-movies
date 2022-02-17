@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
+import { ListItemStyled, Link } from './ListItem.styled';
 
 export default function ListItem({
   item: {
@@ -10,9 +10,9 @@ export default function ListItem({
 }) {
   
   return (
-    <li>
+    <ListItemStyled>
       {<Link to={`/movies/${id}`}>{title || name}</Link>}
-    </li>
+    </ListItemStyled>
   );
 }
 
