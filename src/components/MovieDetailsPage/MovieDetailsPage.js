@@ -44,7 +44,7 @@ export default function MovieDetailsPage() {
     movieDetails;
   const releaseDate = `(${release_date?.slice(0, 4)})`;
   const genresNames = genres?.length > 0 ? genres.map(({ name }) => name).join(", ") : "";
-  const goBackURL = location?.state?.from ?? "/";
+  const goBackURL = location?.state?.from ?? "/movies";
 
   return (
     <MovieDetailsPageDivStyled>

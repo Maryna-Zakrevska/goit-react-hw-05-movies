@@ -6,7 +6,7 @@ import ListItem from "components/ListItem/ListItem";
 import { Status } from "utils/makeChunk";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-
+import { useSearchParams } from "react-router-dom";
 
 import {
   SearchbarStyled,
@@ -18,9 +18,10 @@ import {
 } from "./MoviesPage.styled";
 import { getSearchMovies } from "services/movie-api";
 
-function Searchbar({ onSubmit, status }) {
+function Searchbar({ status }) {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const [, setSearchParams] = useSearchParams();
+  
   const inputQueryChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
@@ -29,10 +30,11 @@ function Searchbar({ onSubmit, status }) {
     e.preventDefault();
     const formQuery = searchQuery.trim();
     if (formQuery === "") {
+      setSearchParams({});
       toast.error("Please type your query request");
       return;
     }
-    onSubmit(formQuery);
+    setSearchParams({ query: formQuery });
     setSearchQuery("");
   };
 
@@ -64,35 +66,34 @@ Searchbar.propTypes = {
   status: PropTypes.string,
 };
 
-export default function MoviesPage({ onSubmit, status, query, page, setStatus }) {
+export default function MoviesPage({ onSubmit, status, page, setStatus }) {
   const [searchMovies, setSearchMovies] = useState(null);
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
+
   useEffect(() => {
-    if ((query === '')) {
+    if (query === "") {
       return;
     }
     setStatus(Status.PENDING);
     getSearchMovies(query, page)
-    .then(newSearchMovies => {
-      if (!newSearchMovies?.results?.length) {
-        toast(`No results for ${query}`);
-      }
-      setSearchMovies(newSearchMovies);
-      setStatus(Status.RESOLVED);
-    })
+      .then((newSearchMovies) => {
+        if (!newSearchMovies?.results?.length) {
+          toast(`No results for ${query}`);
+        }
+        setSearchMovies(newSearchMovies);
+        setStatus(Status.RESOLVED);
+      })
       .catch((error) => toast("No results, please try again"));
-  }, [page, query,setStatus]);
+  }, [page, query, setStatus]);
 
   useEffect(() => {
-    console.log('MoviesPage mounted');
     return () => {
-      console.log('MoviesPage UNmounted');
       setSearchMovies(null);
     };
   }, []);
 
-
-  
   const hasRequestMovies = searchMovies?.results?.length > 0;
   const goBackURL = location?.state?.from ?? "/";
   return (
@@ -110,7 +111,7 @@ export default function MoviesPage({ onSubmit, status, query, page, setStatus })
 MoviesPage.propTypes = {
   onSubmit: PropTypes.func,
   status: PropTypes.string,
-  query:PropTypes.string, 
-  page:PropTypes.number,
+  query: PropTypes.string,
+  page: PropTypes.number,
   setStatus: PropTypes.func,
 };
