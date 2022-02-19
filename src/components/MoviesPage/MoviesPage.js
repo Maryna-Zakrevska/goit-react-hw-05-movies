@@ -4,8 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import PropTypes from "prop-types";
 import ListItem from "components/ListItem/ListItem";
 import { Status } from "utils/makeChunk";
-import { useLocation } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 import {
   SearchbarStyled,
@@ -16,14 +15,14 @@ import {
   SearchFormButtonLabelStyled,
   MoviesListDivStyled,
   MoviesListStyled,
-  GoBackLink
+  GoBackLink,
 } from "./MoviesPage.styled";
 import { getSearchMovies } from "services/movie-api";
 
 function Searchbar({ status }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [, setSearchParams] = useSearchParams();
-  
+
   const inputQueryChange = (e) => {
     setSearchQuery(e.target.value.toLowerCase());
   };
@@ -78,14 +77,14 @@ export default function MoviesPage({ onSubmit, status, page, setStatus }) {
     if (query) {
       setStatus(Status.PENDING);
       getSearchMovies(query, page)
-        .then(newSearchMovies => {
+        .then((newSearchMovies) => {
           if (!newSearchMovies?.results?.length) {
             toast(`No results for ${query}`);
           }
           setSearchMovies(newSearchMovies);
           setStatus(Status.RESOLVED);
         })
-        .catch(error => toast('No results, please try again'));
+        .catch((error) => toast("No results, please try again"));
     }
   }, [page, query, setStatus]);
 
@@ -101,10 +100,12 @@ export default function MoviesPage({ onSubmit, status, page, setStatus }) {
     <MoviesListDivStyled>
       <Searchbar onSubmit={onSubmit} status={status} />
       <GoBackLink to={goBackURL}>&lArr; Go back</GoBackLink>
-      {hasRequestMovies && <MoviesListStyled>
-        {hasRequestMovies &&
-          searchMovies.results.map((item) => <ListItem key={item.id} item={item} />)}
-      </MoviesListStyled>}
+      {hasRequestMovies && (
+        <MoviesListStyled>
+          {hasRequestMovies &&
+            searchMovies.results.map((item) => <ListItem key={item.id} item={item} />)}
+        </MoviesListStyled>
+      )}
     </MoviesListDivStyled>
   );
 }

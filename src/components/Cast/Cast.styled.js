@@ -8,7 +8,6 @@ export const CastDivStyled = styled.div`
   opacity: 0.9;
   padding: 0 12px 0 12px;
   width: fit-content;
-
 `;
 
 export const CastListStyled = styled.ul`
@@ -20,16 +19,16 @@ export const CastListStyled = styled.ul`
 `;
 
 export const CastImgStyled = styled.img`
-border-radius: 8px;
+  border-radius: 8px;
 `;
 
 export const CastNameStyled = styled.p`
-padding: 4px;
-margin: 4px;
-font-weight: 700;
+  padding: 4px;
+  margin: 4px;
+  font-weight: 700;
 `;
 
 export const CastCharacterStyled = styled.p`
-padding: 4px;
-margin: 4px;
+  padding: 4px;
+  margin: 4px;
 `;

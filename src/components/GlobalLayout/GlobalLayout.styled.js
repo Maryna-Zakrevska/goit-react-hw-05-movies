@@ -12,8 +12,8 @@ export const LayoutNavStyled = styled.nav`
 `;
 
 export const NavLink = styled(LinkToStyle)`
-color: white;
-text-decoration: none;
+  color: white;
+  text-decoration: none;
   &.active {
     color: #2196f3;
     text-decoration: underline;

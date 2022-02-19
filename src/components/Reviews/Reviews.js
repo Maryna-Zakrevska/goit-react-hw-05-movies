@@ -1,8 +1,14 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { getMovieReviews } from "services/movie-api";
-import { ReviewsDivStyled, ReviewsListStyled, ReviewsListItemStyled, ReviewAuthorNameStyled,  ReviewContentStyled } from "./Reviews.styled";
+import {
+  ReviewsDivStyled,
+  ReviewsListStyled,
+  ReviewsListItemStyled,
+  ReviewAuthorNameStyled,
+  ReviewContentStyled,
+} from "./Reviews.styled";
 
 export default function Reviews() {
   const [movieReviews, setMovieReviews] = useState(null);

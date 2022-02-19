@@ -1,15 +1,17 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { getMovieCredits } from "services/movie-api";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { makeImagePath } from "components/MovieDetailsPage/MovieDetailsPage";
-import { PlaceholderIcon } from "components/MovieDetailsPage/MovieDetailsPage";
-import { CastDivStyled, CastListStyled, CastImgStyled, CastNameStyled, CastCharacterStyled  } from "./Cast.styled";
-
+import { makeImagePath, PlaceholderIcon } from "components/MovieDetailsPage/MovieDetailsPage";
+import {
+  CastDivStyled,
+  CastListStyled,
+  CastImgStyled,
+  CastNameStyled,
+  CastCharacterStyled,
+} from "./Cast.styled";
 
 export default function Cast() {
-  
   const [movieCast, setMovieCast] = useState(null);
   const { movieId } = useParams();
   useEffect(() => {

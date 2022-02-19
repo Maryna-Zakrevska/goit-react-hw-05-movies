@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const MoviesListStyled = styled.ul`
   list-style: none;
   background: linear-gradient(45deg, #fff1eb, #ace0f9);
-  opacity: 0.5;
+  opacity: 0.9;
   border-radius: 8px;
   width: fit-content;
   padding: 40px;
@@ -13,8 +13,8 @@ export const MoviesListStyled = styled.ul`
 export const MoviesListDivStyled = styled.div`
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 40px;
 `;
-
 
 export const SearchbarStyled = styled.header`
   top: 0;
@@ -28,6 +28,8 @@ export const SearchbarStyled = styled.header`
   background-color: #3f51b5;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14),
     0px 1px 10px 0px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  margin-right: 40px;
 `;
 
 export const SearchFormStyled = styled.form`
@@ -48,7 +50,7 @@ export const SearchFormButtonStyled = styled.button`
   background-size: 40%;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.6;
+  opacity: 0.9;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
@@ -94,12 +96,11 @@ export const SearchFormInputStyled = styled.input`
 `;
 
 export const GoBackLink = styled(Link)`
-display: inline-block;
+  display: inline-block;
   width: 130px;
   padding: 6px 6px 6px 6px;
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 40px;
   border-radius: 8px;
   box-shadow: 2px 3px 4px 1px rgba(33, 33, 33, 0.21);
   font-weight: 700;

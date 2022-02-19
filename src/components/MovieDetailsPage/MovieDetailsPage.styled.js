@@ -30,7 +30,7 @@ export const MovieDetailsPageDivStyled = styled.div`
   border: 4px ridge rgba(33, 33, 33, 0.21);
   border-radius: 8px;
   background: linear-gradient(45deg, #ace0f9, #fff1eb);
-  opacity: 0.8;
+  opacity: 0.9;
 `;
 
 export const MovieImageStyled = styled.img`
@@ -40,12 +40,11 @@ export const MovieImageStyled = styled.img`
 
 export const MovieInfoDivStyled = styled.div`
   padding: 0 12px 0 12px;
-
 `;
 
 export const TitleMovieStyled = styled.h1`
   display: inline-box;
-  margin:0;
+  margin: 0;
   font-size: 28px;
   box-shadow: 2px 3px 4px 1px rgba(33, 33, 33, 0.21);
   border-radius: 8px;
@@ -60,9 +59,8 @@ export const MovieAddInfoDivStyled = styled.div`
   border: 4px ridge rgba(33, 33, 33, 0.21);
   border-radius: 8px;
   background: linear-gradient(45deg, #ace0f9, #fff1eb);
-  opacity: 0.8;
+  opacity: 0.9;
   padding: 0 12px 0 12px;
-
 `;
 
 export const AddInfoListStyled = styled.ul`
@@ -75,7 +73,7 @@ export const NavLink = styled(LinkToStyle)`
   font-weight: 700;
   color: black;
   &.active {
-    text-decoration: underline;  
+    text-decoration: underline;
     color: #2196f3;
   }
   &:hover {

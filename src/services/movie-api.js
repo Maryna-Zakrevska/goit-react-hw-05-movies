@@ -9,33 +9,26 @@ async function getMoviesOrError(url, query = "") {
     : response.data;
 }
 
-export async function getTrendingDayMovies(page=1) {
+export async function getTrendingDayMovies(page = 1) {
   return await getMoviesOrError(
     `/trending/movie/day?api_key=${MOVIE_API_KEY}&page=${page}&include_adult=false`,
   );
 }
 
-export async function getSearchMovies(query, page=1) {
+export async function getSearchMovies(query, page = 1) {
   return await getMoviesOrError(
     `/search/movie?query=${query}&api_key=${MOVIE_API_KEY}&page=${page}&include_adult=false`,
   );
 }
-  
-  export async function getMovieDetails(movieId) {
-    return await getMoviesOrError(
-      `/movie/${movieId}?api_key=${MOVIE_API_KEY}`,
-    );
-  } 
 
-  export async function getMovieCredits(movieId) {
-    return await getMoviesOrError(
-      `/movie/${movieId}/credits?api_key=${MOVIE_API_KEY}`,
-    );
-  } 
+export async function getMovieDetails(movieId) {
+  return await getMoviesOrError(`/movie/${movieId}?api_key=${MOVIE_API_KEY}`);
+}
 
-  export async function getMovieReviews(movieId, page=1) {
-    return await getMoviesOrError(
-      `/movie/${movieId}/reviews?api_key=${MOVIE_API_KEY}&page=${page}`,
-    );
-  } 
+export async function getMovieCredits(movieId) {
+  return await getMoviesOrError(`/movie/${movieId}/credits?api_key=${MOVIE_API_KEY}`);
+}
 
+export async function getMovieReviews(movieId, page = 1) {
+  return await getMoviesOrError(`/movie/${movieId}/reviews?api_key=${MOVIE_API_KEY}&page=${page}`);
+}
