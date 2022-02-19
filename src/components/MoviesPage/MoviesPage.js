@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import ListItem from "components/ListItem/ListItem";
 import { Status } from "utils/makeChunk";
 import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 import {
@@ -15,6 +14,9 @@ import {
   SearchFormButtonSpanStyled,
   SearchFormInputStyled,
   SearchFormButtonLabelStyled,
+  MoviesListDivStyled,
+  MoviesListStyled,
+  GoBackLink
 } from "./MoviesPage.styled";
 import { getSearchMovies } from "services/movie-api";
 
@@ -73,19 +75,18 @@ export default function MoviesPage({ onSubmit, status, page, setStatus }) {
   const query = searchParams.get("query");
 
   useEffect(() => {
-    if (query === "") {
-      return;
+    if (query) {
+      setStatus(Status.PENDING);
+      getSearchMovies(query, page)
+        .then(newSearchMovies => {
+          if (!newSearchMovies?.results?.length) {
+            toast(`No results for ${query}`);
+          }
+          setSearchMovies(newSearchMovies);
+          setStatus(Status.RESOLVED);
+        })
+        .catch(error => toast('No results, please try again'));
     }
-    setStatus(Status.PENDING);
-    getSearchMovies(query, page)
-      .then((newSearchMovies) => {
-        if (!newSearchMovies?.results?.length) {
-          toast(`No results for ${query}`);
-        }
-        setSearchMovies(newSearchMovies);
-        setStatus(Status.RESOLVED);
-      })
-      .catch((error) => toast("No results, please try again"));
   }, [page, query, setStatus]);
 
   useEffect(() => {
@@ -97,14 +98,14 @@ export default function MoviesPage({ onSubmit, status, page, setStatus }) {
   const hasRequestMovies = searchMovies?.results?.length > 0;
   const goBackURL = location?.state?.from ?? "/";
   return (
-    <div>
+    <MoviesListDivStyled>
       <Searchbar onSubmit={onSubmit} status={status} />
-      <Link to={goBackURL}>&lArr; Go back</Link>
-      <ul>
+      <GoBackLink to={goBackURL}>&lArr; Go back</GoBackLink>
+      {hasRequestMovies && <MoviesListStyled>
         {hasRequestMovies &&
           searchMovies.results.map((item) => <ListItem key={item.id} item={item} />)}
-      </ul>
-    </div>
+      </MoviesListStyled>}
+    </MoviesListDivStyled>
   );
 }
 

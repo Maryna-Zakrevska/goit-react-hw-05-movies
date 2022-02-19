@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { ListItemStyled, Link } from './ListItem.styled';
+import { useLocation } from 'react-router-dom';
 
 export default function ListItem({
   item: {
@@ -8,10 +9,12 @@ export default function ListItem({
     name,
   },
 }) {
+  const location = useLocation();
+  const currentState = { from: location };
   
   return (
     <ListItemStyled>
-      {<Link to={`/movies/${id}`}>{title || name}</Link>}
+      {<Link to={`/movies/${id}`} state={currentState}>{title || name}</Link>}
     </ListItemStyled>
   );
 }

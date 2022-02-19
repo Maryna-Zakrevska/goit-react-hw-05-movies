@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { makeImagePath } from "components/MovieDetailsPage/MovieDetailsPage";
 import { PlaceholderIcon } from "components/MovieDetailsPage/MovieDetailsPage";
+import { CastDivStyled, CastListStyled, CastImgStyled, CastNameStyled, CastCharacterStyled  } from "./Cast.styled";
 
 
 export default function Cast() {
@@ -18,31 +19,31 @@ export default function Cast() {
   }, [movieId]);
   const hasMovieCast = movieCast?.cast?.length > 0;
   return (
-    <div>
+    <CastDivStyled id="cast">
       {hasMovieCast ? (
-        <ul>
+        <CastListStyled>
           {movieCast.cast.map(({ id, character, name, profile_path }) => (
             <li key={id}>
               {profile_path ? (
-                <img
-                  width={121}
+                <CastImgStyled
+                  width={200}
                   height="auto"
                   src={makeImagePath(profile_path)}
                   alt={name || "actor image"}
                 />
               ) : (
-                <PlaceholderIcon width="121" height="121" fill="white" />
+                <PlaceholderIcon width="200" height="300" fill="white" />
               )}
-              <p>{name}</p>
-              <p>Character: {character}</p>
+              <CastNameStyled>{name}</CastNameStyled>
+              <CastCharacterStyled>Character: {character}</CastCharacterStyled>
             </li>
           ))}
-        </ul>
+        </CastListStyled>
       ) : (
         <div>
           <p>We don't have cast information about this movie</p>
         </div>
       )}
-    </div>
+    </CastDivStyled>
   );
 }

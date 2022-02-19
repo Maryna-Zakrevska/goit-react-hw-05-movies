@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect  } from "react";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { getMovieReviews } from "services/movie-api";
+import { ReviewsDivStyled, ReviewsListStyled, ReviewsListItemStyled, ReviewAuthorNameStyled,  ReviewContentStyled } from "./Reviews.styled";
 
 export default function Reviews() {
   const [movieReviews, setMovieReviews] = useState(null);
@@ -14,21 +14,21 @@ export default function Reviews() {
   }, [movieId]);
   const hasMovieReviews = movieReviews?.results?.length > 0;
   return (
-    <div>
+    <ReviewsDivStyled id="reviews">
       {hasMovieReviews ? (
-        <ul>
+        <ReviewsListStyled>
           {movieReviews.results.map(({ id, author, content }) => (
-            <li key={id}>
-              <b>Author: {author}</b>
-              <p>{content}</p>
-            </li>
+            <ReviewsListItemStyled key={id}>
+              <ReviewAuthorNameStyled>Author: {author}</ReviewAuthorNameStyled>
+              <ReviewContentStyled>{content}</ReviewContentStyled>
+            </ReviewsListItemStyled>
           ))}
-        </ul>
+        </ReviewsListStyled>
       ) : (
         <div>
           <p>We don't have any reviews for this movie</p>
         </div>
       )}
-    </div>
+    </ReviewsDivStyled>
   );
 }

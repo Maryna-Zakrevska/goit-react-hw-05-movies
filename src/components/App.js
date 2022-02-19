@@ -18,7 +18,7 @@ export const App = () => {
   const [status, setStatus] = useState(Status.IDLE);
 
   return (
-    <div className="App">
+    <div>
       <Suspense fallback={<p>Just loading...</p>}>
         <Routes>
           <Route path="/" element={<GlobalLayout />}>
