@@ -8,8 +8,8 @@ const HomePage = makeChunk("HomePage");
 const MoviesPage = makeChunk("MoviesPage");
 const NotFound = makeChunk("NotFound");
 const MovieDetailsPage = makeChunk("MovieDetailsPage");
-const Reviews = makeChunk("Reviews");
-const Cast = makeChunk("Cast");
+const Reviews = makeChunk("Reviews", true);
+const Cast = makeChunk("Cast", true);
 
 export const App = () => {
   const [page] = useState(1);

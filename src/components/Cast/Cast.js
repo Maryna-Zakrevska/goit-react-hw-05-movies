@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getMovieCredits } from "services/movie-api";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { makeImagePath, PlaceholderIcon } from "components/MovieDetailsPage/MovieDetailsPage";
+import { makeImagePath, PlaceholderIcon } from "pages/MovieDetailsPage/MovieDetailsPage";
 import {
   CastDivStyled,
   CastListStyled,

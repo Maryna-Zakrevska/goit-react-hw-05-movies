@@ -102,8 +102,7 @@ export default function MoviesPage({ onSubmit, status, page, setStatus }) {
       <GoBackLink to={goBackURL}>&lArr; Go back</GoBackLink>
       {hasRequestMovies && (
         <MoviesListStyled>
-          {hasRequestMovies &&
-            searchMovies.results.map((item) => <ListItem key={item.id} item={item} />)}
+          {searchMovies.results.map((item) => <ListItem key={item.id} item={item} />)}
         </MoviesListStyled>
       )}
     </MoviesListDivStyled>

@@ -15,10 +15,13 @@ export default function HomePage({ page }) {
   const hasTrendingMovies = trending?.results?.length > 0;
   return (
     <HomeListDivStyled>
-      <HomeListStyled>
-        {hasTrendingMovies &&
-          trending.results.map((item) => <ListItem key={item.id} item={item} />)}
-      </HomeListStyled>
+      {hasTrendingMovies && (
+        <HomeListStyled>
+          {trending.results.map((item) => (
+            <ListItem key={item.id} item={item} />
+          ))}
+        </HomeListStyled>
+      )}
     </HomeListDivStyled>
   );
 }
